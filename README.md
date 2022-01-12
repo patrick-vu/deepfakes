@@ -7,6 +7,8 @@ Code files:
   - DescriptiveStatistics.R: this creates the descriptive table included in the paper
   - Exp1_TablesAndGraphs.R: this includes the anlaysis from Experiment 1 in the article
   - Exp2_TablesAndGraphs.R: this includes the anlaysis from Experiment 2 in the article
+
+
 Data files:
   - dfrawfinal.csv is the raw data from the both experiments
   - The remainin Rda files are outputs from the CleanData.R script
