@@ -12,4 +12,4 @@ Code files:
 
 Data files:
   - dfrawfinal.csv is the raw data from the both experiments
-  - The remainin Rda files are outputs from the CleanData.R script
+  - The remaining .Rda files are outputs from the CleanData.R script
