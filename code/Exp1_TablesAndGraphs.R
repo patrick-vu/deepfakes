@@ -27,8 +27,7 @@ load('../data/dfexp1.Rda')
 #-------------------------------------------------------------------------------------------------
 # (1) regression: out of the ordinary?
 #-------------------------------------------------------------------------------------------------
-## tables of out of ordinary by condition (1=yes, 2 = no) ##
-# share and number of out of the ordinary by control and treatment
+# share and number out of the ordinary by control and treatment
 Table = df %>%
     group_by(treatment, out_of_ordinary) %>%
     summarise(Count = n()) %>% 

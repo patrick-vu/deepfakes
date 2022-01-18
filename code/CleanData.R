@@ -241,11 +241,13 @@ dfexp1$age_dummy = ifelse(dfexp1$qage < median(dfexp1$qage), 1, 0)
 # select variables
 dfexp1 = dfexp1 %>%
     select(experiment, out_of_ordinary, treatment, false_negatives,
-           qage, female, aware_df, proficient_dummy, age_dummy, internet_use_dummy, familiar_tc, familiar_tc_dummy,
+           qage, female, aware_df, proficient_dummy, age_dummy, internet_use_dummy, familiar_tc_dummy,
+           proficient, internet_use, familiar_tc,
            exp1correct, exp1choosedf, exp1chooseone,
            treatordinarythumb_1, treatordinarythumb_2, treatordinarythumb_3, treatordinarythumb_4, treatordinarythumb_5,
            contordinarythumb_1, contordinarythumb_2, contordinarythumb_3, contordinarythumb_4, contordinarythumb_5,
            proficient)
+
 
 #-------------------------------------------------------------------------------------------------
 # Experiment 2: only T2
@@ -341,13 +343,17 @@ dfexp2$age_dummy = as.numeric(ifelse(dfexp2$qage < median(dfexp2$qage, na.rm = T
 #-------------------------------------------------------------------------------------------------
 temp1 = dfexp1 %>%
     filter(treatment == 1) %>%
-    select(exp1correct, false_negatives, qage, aware_df, proficient_dummy, internet_use_dummy, familiar_tc, familiar_tc_dummy, age_dummy, female,
+    select(exp1correct, false_negatives, qage, female, aware_df, 
+           proficient_dummy, internet_use_dummy, familiar_tc_dummy, age_dummy, 
+           proficient, internet_use, familiar_tc,
            out_of_ordinary)
 temp1$treatment = 0
 colnames(temp1)[1] = 'correct'
 
 temp2 = dfexp2 %>%
-    select(exp2correct, false_negatives, qage, aware_df, proficient_dummy, internet_use_dummy, familiar_tc, familiar_tc_dummy, age_dummy, female)
+    select(exp2correct, false_negatives, qage, female, aware_df, 
+           proficient_dummy, internet_use_dummy, familiar_tc_dummy, age_dummy, 
+           proficient, internet_use, familiar_tc)
 temp2$out_of_ordinary = NA
 temp2$treatment = 1
 colnames(temp2)[1] = 'correct'

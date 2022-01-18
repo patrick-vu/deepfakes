@@ -33,10 +33,10 @@ dfexp1$treatment_group = ifelse(dfexp1$treatment == 1, 'T1', 'C1')
 dfexp2$treatment_group = ifelse(dfexp2$treatment == 1, 'T2', 'T1')
 
 dfexp1 = dfexp1 %>% 
-  select(treatment_group, qage, female, aware_df, proficient_dummy, internet_use_dummy, familiar_tc)
+  select(treatment_group, qage, female, aware_df, proficient, internet_use, familiar_tc)
 
 dfexp2 = dfexp2 %>% 
-  select(treatment_group, qage, female, aware_df, proficient_dummy, internet_use_dummy, familiar_tc) %>%
+  select(treatment_group, qage, female, aware_df, proficient, internet_use, familiar_tc) %>%
   filter(treatment_group == 'T2')
 
 df = rbind.data.frame(dfexp1, dfexp2)
@@ -52,15 +52,15 @@ remove(dfexp1, dfexp2)
 regAge         = lm(qage ~ as.factor(treatment_group), dfC1T1)
 regFemale      = lm(female ~ as.factor(treatment_group), dfC1T1) 
 regAwareDf     = lm(aware_df ~ as.factor(treatment_group), dfC1T1) 
-regProficient  = lm(proficient_dummy ~ as.factor(treatment_group), dfC1T1)
-regInternetUse = lm(internet_use_dummy ~ as.factor(treatment_group), dfC1T1)
+regProficient  = lm(proficient ~ as.factor(treatment_group), dfC1T1)
+regInternetUse = lm(internet_use ~ as.factor(treatment_group), dfC1T1)
 regFamiliar    = lm(familiar_tc ~ as.factor(treatment_group), dfC1T1)
 
 regAge2         = lm(qage ~ as.factor(treatment_group), dfC1T2)
 regFemale2      = lm(female ~ as.factor(treatment_group), dfC1T2) 
 regAwareDf2     = lm(aware_df ~ as.factor(treatment_group), dfC1T2) 
-regProficient2  = lm(proficient_dummy ~ as.factor(treatment_group), dfC1T2)
-regInternetUse2 = lm(internet_use_dummy ~ as.factor(treatment_group), dfC1T2)
+regProficient2  = lm(proficient ~ as.factor(treatment_group), dfC1T2)
+regInternetUse2 = lm(internet_use ~ as.factor(treatment_group), dfC1T2)
 regFamiliar2    = lm(familiar_tc ~ as.factor(treatment_group), dfC1T2)
 
 # populate table with results
@@ -108,7 +108,7 @@ rownames(Table) = c('Age', '',
                     'Female', ' ',
                     'Aware of deepfakes', ' ',
                     'Proficient with social media', ' ',
-                    'High level of internet use', ' ',
+                    'Internet use', ' ',
                     'Familiar with actor', ' ',
                     'Observations'
 )
