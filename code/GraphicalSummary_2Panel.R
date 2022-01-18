@@ -31,7 +31,7 @@ load('../data/dfexp1.Rda')
 m1 = lm(out_of_ordinary ~ treatment, df)
 afRobustSEs = sqrt(diag(vcovHC(m1, "HC1")))
 
-df1 = data.frame(Group = as.factor(c('No deepfake \n (Control)', 'Deefake \n (Treatment)')),
+df1 = data.frame(Group = as.factor(c('No deepfake \n (Control)', 'Deepfake \n (Treatment)')),
                  Share = c(m1$coefficients[1], m1$coefficients[1] + m1$coefficients[2])*100,
                  Error = c(0, 100*1.96*afRobustSEs[2]))
 df1$Group = ordered(df1$Group, levels = rev(levels(df1$Group)))
