@@ -1,6 +1,7 @@
 #=================================================================================================
 # Descriptive statistics
 #=================================================================================================
+# Purpose: creates descriptive statistics table
 #-------------------------------------------------------------------------------------------------
 # Housekeeping
 #-------------------------------------------------------------------------------------------------
@@ -10,9 +11,6 @@ rm(list = ls())
 library(ggplot2)
 library(ggpubr)
 library(stargazer)
-library(miceadds)
-library(magrittr)
-library(yaml)
 library(tidyverse)
 library(dplyr)
 library(sandwich)
@@ -46,7 +44,7 @@ remove(dfexp1, dfexp2)
   
 
 #-------------------------------------------------------------------------------------------------
-# summary stats + randomization check
+# summary stats + balance check
 #-------------------------------------------------------------------------------------------------
 # run regressions
 regAge         = lm(qage ~ as.factor(treatment_group), dfC1T1)
@@ -72,10 +70,10 @@ ExtractData = function(rg){
   afRobustSE = sqrt(diag(mVarCov))
   
   # round figures for table
-  output = cbind(afCoefficients, afCoefficients/afRobustSE) %>% round(3) %>% t()
+  output = cbind(afCoefficients, afRobustSE) %>% round(3) %>% t()
   
   # t-values in brackets
-  output[2,] = str_c('[', output[2,], ']')
+  output[2,] = str_c('(', output[2,], ')')
   
   return(output)
   }
@@ -115,16 +113,20 @@ rownames(Table) = c('Age', '',
 
 LatexOutput = stargazer(Table, header = F)
 
+# insert lines in table
 InsertLineLatexTable = function(LatexObject, acString, nRow){
   x = str_c(acString, collapse = ' & ')
   # x = str_c(x, ' \\\\')
   output = c(LatexObject[1:nRow], x, LatexObject[(nRow+1):length(LatexObject)])
   return(output)
 }
-
 LatexOutput = InsertLineLatexTable(LatexOutput, '\\hline', 21)
 LatexOutput = InsertLineLatexTable(LatexOutput, '\\hline', 24)
 
 cat(str_c(LatexOutput, collapse = '\n'))
 
+###
+stargazer(Table, header = F, 
+          type='text',
+          out = '../figures/table_descriptive_statistics.txt')
 
